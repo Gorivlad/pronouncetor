@@ -1,0 +1,10 @@
+# Ignore data
+
+data/raw/*
+data/processed/*
+data/transcripts/*
+data/experimentation/*
+
+!data/raw/*
+!data/processed/*
+!data/transcripts/*
