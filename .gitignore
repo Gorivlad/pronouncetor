@@ -8,3 +8,17 @@ data/experimentation/*
 !data/raw/*
 !data/processed/*
 !data/transcripts/*
+
+# Ignore virtual environment
+
+.venv
+
+# Ignore files for debugingnd and play
+
+debuging.py
+playground.py
+
+# Resemblyzer demo requirments
+
+Resemblyzer-master
+
