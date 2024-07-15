@@ -16,7 +16,7 @@ def main():
     diarization_result = diarization_model.infer_file(file_path)
 
     #Display results
-    #diarization_model.display_results(diarization_result)
+    diarization_model.display_results(diarization_result)
 
 if __name__ == "__main__":
     main()
