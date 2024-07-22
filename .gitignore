@@ -5,9 +5,9 @@ data/processed/*
 data/transcripts/*
 data/experimentation/*
 
-!data/raw/*
-!data/processed/*
-!data/transcripts/*
+!data/raw/.gitignore
+!data/processed/.gitignore
+!data/transcripts/.gitignore
 
 # Ignore virtual environment
 
