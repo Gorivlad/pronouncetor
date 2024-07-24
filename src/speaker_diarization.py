@@ -35,7 +35,7 @@ class DiarizationModel:
             if speaker == target_speaker:
                 times.append(turn.start)
                 times.append(turn.end)
-        print(f"Timestamps of {target_speaker} extracted as list")
+        print(f"Timestamps of {target_speaker} extracted as a list")
         return times
 
     def time_extraction_touples(self, diarization_result, target_speaker):
@@ -44,7 +44,7 @@ class DiarizationModel:
         for turn, _, speaker in diarization_result.itertracks(yield_label=True):
             if speaker == target_speaker:
                 times.append((turn.start, turn.end))
-        print(f"Timestamps of {target_speaker} extracted as list of touples")
+        print(f"Timestamps of {target_speaker} extracted as a list of touples")
         return times
 
 def extract_and_save_clips(file_path, time_segments, output_path = "../data/processed/extracted.wav"):
