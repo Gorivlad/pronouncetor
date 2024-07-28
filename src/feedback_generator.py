@@ -1,15 +1,18 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 client = OpenAI()
 # Space for different queries defined as Methods of object Feedback
 
+
 class Feedback:
     def __init__(self, transcription):
         self.client = OpenAI()
         self.transcription = transcription
+
 
     def feedback_base(self):
         completion = client.chat.completions.create(

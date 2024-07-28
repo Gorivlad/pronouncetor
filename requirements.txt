@@ -1,7 +1,9 @@
 aiohttp==3.9.5
 aiosignal==1.3.1
 alembic==1.13.2
+annotated-types==0.7.0
 antlr4-python3-runtime==4.9.3
+anyio==4.4.0
 asteroid-filterbanks==0.4.0
 attrs==23.2.0
 audioread==3.0.1
@@ -14,6 +16,7 @@ colorlog==6.8.2
 contourpy==1.2.1
 cycler==0.12.1
 decorator==5.1.1
+distro==1.9.0
 docopt==0.6.2
 einops==0.8.0
 filelock==3.15.4
@@ -22,6 +25,9 @@ fonttools==4.53.1
 frozenlist==1.4.1
 fsspec==2024.6.1
 greenlet==3.0.3
+h11==0.14.0
+httpcore==1.0.5
+httpx==0.27.0
 huggingface-hub==0.23.4
 humanfriendly==10.0
 HyperPyYAML==1.2.2
@@ -61,6 +67,7 @@ nvidia-nvjitlink-cu12==12.5.82
 nvidia-nvtx-cu12==12.1.105
 omegaconf==2.3.0
 onnxruntime==1.18.1
+openai==1.37.0
 openai-whisper==20231117
 optuna==3.6.1
 packaging==24.1
@@ -76,9 +83,13 @@ pyannote.database==5.1.0
 pyannote.metrics==3.2.1
 pyannote.pipeline==3.0.1
 pycparser==2.22
+pydantic==2.8.2
+pydantic_core==2.20.1
+pydub==0.25.1
 Pygments==2.18.0
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 pytorch-lightning==2.3.3
 pytorch-metric-learning==2.5.0
 pytz==2024.1
@@ -95,6 +106,7 @@ sentencepiece==0.2.0
 setuptools==70.3.0
 shellingham==1.5.4
 six==1.16.0
+sniffio==1.3.1
 sortedcontainers==2.4.0
 soundfile==0.12.1
 soxr==0.3.7
