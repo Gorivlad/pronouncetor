@@ -1,6 +1,7 @@
+import threading
 from speaker_diarization import DiarizationModel
 from feedback_generator import Feedback
-from utils import convert_to_wav, extract_and_save_clips, save_transcription_to_txt, display_txt_file, extract_first_30_seconds
+from utils import convert_to_wav, extract_and_save_clips, save_transcript_to_txt, display_txt_file, extract_first_30_seconds, filter_transcript
 
 import whisper
 
@@ -45,11 +46,11 @@ def main():
         audio_example = extract_first_30_seconds()
         print("First 30s extracted")
         model = whisper.load_model("tiny.en")
-        result = model.transcribe("../data/processed/extracted_example.wav")
+        result = model.transcribe("../data/processed/extracted_example.wav", verbose = True)
         
 
         #Print example of the speaker
-        print(result["text"] + "...")
+        print(result["text"][:100] + "...")
 
 
         #Verify correctnes of target speaker
@@ -61,19 +62,25 @@ def main():
     # Transcribe target speaker
     print(f"Transcripting SPEAKER_0{str(speaker_n)}")
     model = whisper.load_model("base.en")
-    result = model.transcribe(audio = "../data/processed/extracted.wav", word_timestamps = True)
+    result = model.transcribe(audio = "../data/processed/extracted.wav", verbose = True, word_timestamps = True)
 
 
-    # Save result of transcription
+    # Save result of transcription as .txt
     transcript_path = "../data/processed/transcript.txt"
-    save_transcript_to_txt(result, "../data/processed/transcript.txt" )
+    save_transcript_to_txt(result, transcript_path)
 
-    # Display the transcript
-    display_txt_file(transcript_path)
+
+    # Save result of transcription as variable
+    filtered_result = filter_transcript(result)
+
+
+    # Create and start a thread for the transcript
+    thread = threading.Thread(target=display_txt_file, args=(transcript_path,))
+    thread.start()
 
 
     #Provide feedback
-    feedback = Feedback(result)
+    feedback = Feedback(filtered_result)
     print(feedback.feedback_base())
 
 if __name__ == "__main__":
