@@ -52,3 +52,15 @@ class DiarizationModel:
                 times.append((turn.start, turn.end))
         print(f"Timestamps of {target_speaker} extracted as a list of touples")
         return times
+
+
+    def time_extraction_str_list(self, diarization_result, target_speaker):
+        # Returns a comma-separated string of times "start,end,start,end,..."
+        times = []
+        for turn, _, speaker in diarization_result.itertracks(yield_label=True):
+            if speaker == target_speaker:
+                times.append(turn.start)
+                times.append(turn.end)
+        times_str = ",".join(map(str, times))
+        print(f"Timestamps of {target_speaker} extracted as: {times_str}")
+        return times_str

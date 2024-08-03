@@ -1,6 +1,6 @@
 from speaker_diarization import DiarizationModel
 from feedback_generator import Feedback
-from utils import convert_to_wav, extract_and_save_clips
+from utils import convert_to_wav, extract_and_save_clips, save_transcription_to_txt, display_txt_file, extract_first_30_seconds
 
 import whisper
 
@@ -14,7 +14,7 @@ def main():
     if not file_path.lower().endswith('.wav'):
         convert_to_wav(file_path, "../data/processed/converted.wav")
         file_path = "../data/processed/converted.wav"
-        print("Audio file converted into .wav")
+
 
 
     #Initialize the diarization model
@@ -28,7 +28,7 @@ def main():
     correct_target_speaker = False
     speaker_n = 0
     
-
+    # Aim the target speaker
     while correct_target_speaker == False:
 
 
@@ -40,13 +40,16 @@ def main():
         extract_and_save_clips(file_path, time_extraction)
 
 
-        #Transcribe the speaker and print text
-        model = whisper.load_model("base.en")
-        result = model.transcribe(audio = "../data/processed/extracted.wav")
+
+        # transcript example
+        audio_example = extract_first_30_seconds()
+        print("First 30s extracted")
+        model = whisper.load_model("tiny.en")
+        result = model.transcribe("../data/processed/extracted_example.wav")
         
 
         #Print example of the speaker
-        print(result["text"][:200] + "...")
+        print(result["text"] + "...")
 
 
         #Verify correctnes of target speaker
@@ -55,8 +58,23 @@ def main():
             correct_target_speaker = True
         else:
             speaker_n += 1
+    # Transcribe target speaker
+    print(f"Transcripting SPEAKER_0{str(speaker_n)}")
+    model = whisper.load_model("base.en")
+    result = model.transcribe(audio = "../data/processed/extracted.wav", word_timestamps = True)
 
-        
+
+    # Save result of transcription
+    transcript_path = "../data/processed/transcript.txt"
+    save_transcript_to_txt(result, "../data/processed/transcript.txt" )
+
+    # Display the transcript
+    display_txt_file(transcript_path)
+
+
     #Provide feedback
     feedback = Feedback(result)
     print(feedback.feedback_base())
+
+if __name__ == "__main__":
+    main()
