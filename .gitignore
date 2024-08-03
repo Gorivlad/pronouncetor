@@ -17,6 +17,7 @@ data/experimentation/*
 
 debuging.py
 playground.py
+unused.py 
 
 #Ignore personal keys
 

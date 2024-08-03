@@ -1,9 +1,10 @@
+import whisper
 import threading
+
 from speaker_diarization import DiarizationModel
 from feedback_generator import Feedback
-from utils import convert_to_wav, extract_and_save_clips, save_transcript_to_txt, display_txt_file, extract_first_30_seconds, filter_transcript
-
-import whisper
+from utils import convert_to_wav, extract_and_save_clips, display_txt_file, extract_first_30_seconds
+from transcript import filter_transcript, save_transcript_to_txt
 
 
 def main():
