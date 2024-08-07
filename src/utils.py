@@ -2,6 +2,8 @@ import subprocess
 from pydub import AudioSegment
 import tkinter as tk
 from tkinter import scrolledtext
+import vlc
+import time
 
 
 def convert_to_wav(input_file, output_file):
@@ -10,7 +12,7 @@ def convert_to_wav(input_file, output_file):
     print("Audio file converted into .wav")
 
 
-def extract_and_save_clips(file_path, time_segments, output_path = "../data/processed/extracted.wav"):
+def extract_and_save_clips(file_path, time_segments, output_path):
         # Extract clips and save it as .wav file using pydub
         # Time segments == list of touples
         audio = AudioSegment.from_file(file_path)
@@ -33,16 +35,6 @@ def extract_first_30_seconds():
 
     audio_example.export(output_path, format="wav")
     print(f"Extracted audio example saved to {output_path}")
-
-    
-def time_extraction_touples(diarization_result, target_speaker):
-    # Returns list of touples [{start,end},{start,end}...]
-    times = []
-    for turn, _, speaker in diarization_result.itertracks(yield_label=True):
-        if speaker == target_speaker:
-            times.append((turn.start, turn.end))
-    print(f"Timestamps of {target_speaker} extracted as a list of touples")
-    return times
 
 
 def display_txt_file(file_path):
@@ -68,4 +60,7 @@ def display_txt_file(file_path):
         print(f"File not found: {file_path}")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+
         

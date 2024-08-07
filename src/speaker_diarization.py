@@ -21,29 +21,6 @@ class DiarizationModel:
         return diarization_result
 
 
-    def plot_diarization(self, diarization_result, title="Diarization for the file"):
-        fig, ax = plt.subplots(figsize=(10, 2))
-        for turn, _, speaker in diarization_result.itertracks(yield_label=True):
-            ax.plot([turn.start, turn.end], [speaker, speaker], lw=6)
-        ax.set_yticks(list(diarization_result.labels()))
-        ax.set_yticklabels([f"Speaker {label}" for label in diarization_result.labels()])
-        ax.set_xlabel("Time (s)")
-        ax.set_title(title)
-        plt.show()
-        print("Diarization plot displayed")
-
-
-    def time_extraction_list(self, diarization_result, target_speaker):
-        # Returns list of times [start,end,start,end...]
-        times = []
-        for turn, _, speaker in diarization_result.itertracks(yield_label=True):
-            if speaker == target_speaker:
-                times.append(turn.start)
-                times.append(turn.end)
-        print(f"Timestamps of {target_speaker} extracted as a list")
-        return times
-
-
     def time_extraction_touples(self, diarization_result, target_speaker):
         # Returns list of touples [{start,end},{start,end}...]
         times = []
@@ -54,13 +31,15 @@ class DiarizationModel:
         return times
 
 
-    def time_extraction_str_list(self, diarization_result, target_speaker):
-        # Returns a comma-separated string of times "start,end,start,end,..."
-        times = []
+    def plot_diarization(self, diarization_result, title="Diarization for the file"):
+        fig, ax = plt.subplots(figsize=(10, 2))
         for turn, _, speaker in diarization_result.itertracks(yield_label=True):
-            if speaker == target_speaker:
-                times.append(turn.start)
-                times.append(turn.end)
-        times_str = ",".join(map(str, times))
-        print(f"Timestamps of {target_speaker} extracted as: {times_str}")
-        return times_str
+            ax.plot([turn.start, turn.end], [speaker, speaker], lw=6)
+        ax.set_yticks(list(diarization_result.labels()))
+        ax.set_yticklabels([f"Speaker {label}" for label in diarization_result.labels()])
+        ax.set_xlabel("Time (s)")
+        ax.set_title(title)
+        plt.show()
+        print("Diarization plot displayed")
+        
+        
