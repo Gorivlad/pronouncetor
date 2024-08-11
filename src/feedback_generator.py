@@ -47,7 +47,7 @@ class Feedback:
         return assistant_message
 
 
-# Space for different OpenAI's system instructions
+#Space for different OpenAI's system instructions
 system_query = {"short_funny": ("You are a witty expert that provides constructive feedback"
 " on the English grammar of individuals based on their language use in a conversation. "
 "I will provide you with a transcript of one speaker's part of a conversation including segments ID,"
@@ -77,7 +77,7 @@ system_query = {"short_funny": ("You are a witty expert that provides constructi
 " the grammar used by this speaker and give feedback aimed at improving their grammar skills."
 "With pinpointing when exactly was the mistake made.")}
 
-system_query = { ("short_funny": "You are a witty expert that provides constructive feedback on the"
+system_query_beta = { ("short_funny": "You are a witty expert that provides constructive feedback on the"
 " speaking abilities of individuals based on their language use in a conversation. I will provide you"
 " with a transcript of a whole file including segment IDs, timestamps, and speaker information. Your "
 "task is to map the target speaker's segments into the entire conversation, analyze their speaking "
@@ -100,10 +100,6 @@ system_query = { ("short_funny": "You are a witty expert that provides construct
 " file including segment IDs, timestamps, and speaker information. Your task is to map the target speaker's "
 "segments into the entire conversation, analyze their speaking abilities, and give feedback aimed at improving"
 "their skills. Pinpoint when exactly the mistakes or notable moments occurred.")
-
-
-
-
 }
 
 

@@ -1,8 +1,9 @@
+# Main beta transcript extracted and whole file then prompt ai to map them for feedback 
 import whisper
 import threading
 
 from speaker_diarization import DiarizationModel
-from feedback_generator import Feedback, system_query
+from feedback_generator import Feedback, system_query_beta
 from utils import convert_to_wav, extract_and_save_clips, display_txt_file, extract_first_30_seconds
 from transcript import filter_transcript, save_transcript_to_txt
 
@@ -12,6 +13,7 @@ def main():
     converted_audio_path = "../data/processed/converted.wav"
     extracted_clip = "../data/processed/extracted.wav"
     transcript_path = "../data/processed/transcript.txt"
+    whole_file_transcript_path = "../data/processed/transcript_whole_file.txt"
 
 
     #Get the file path from user input
@@ -64,22 +66,24 @@ def main():
             correct_target_speaker = True
         else:
             speaker_n += 1
-    #Transcribe the target speaker
+    #Transcribe the target speaker and save result 
     print(f"Transcripting SPEAKER_0{str(speaker_n)}. May take a while...")
     model = whisper.load_model("small.en")
-    result = model.transcribe(audio=extracted_clip, word_timestamps = True)
-
-
-    #Save result of transcription as .txt
+    result = model.transcribe(audio=extracted_clip)
     save_transcript_to_txt(result, transcript_path)
-
-
-    #Save result of transcription as variable
     filtered_result = filter_transcript(result)
 
 
-    #Create and start a thread for the transcript
-    thread = threading.Thread(target=display_txt_file, args=(transcript_path,))
+    #Transcribe the whole file and save the result
+    print("Transcripting whole file. May take a while...")
+    model = whisper.load_model("small.en")
+    result_whole = model.transcribe(audio=converted_audio_path, word_timestamps = True)
+    save_transcript_to_txt(result_whole, whole_file_transcript_path)
+    filtered_result_whole = filter_transcript(result_whole)
+
+
+    #Create and start a thread for the whole transcript
+    thread = threading.Thread(target=display_txt_file, args=(whole_file_transcript_path,))
     thread.start()
 
     #Ask for system style
@@ -97,7 +101,7 @@ def main():
 
 
     #Provide feedback
-    feedback = Feedback(transcription = filtered_result, system_query = system_query[system_query_name])
+    feedback = Feedback(transcription = filtered_result_whole + filtered_result, system_query = system_query_beta[system_query_name])
     print(feedback.first_message())
     user_input = " "
     while user_input.lower() != "exit":
