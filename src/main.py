@@ -2,7 +2,7 @@ import whisper
 import threading
 
 from speaker_diarization import DiarizationModel
-from feedback_generator import Feedback, sarcastic_concise
+from feedback_generator import Feedback, system_query
 from utils import convert_to_wav, extract_and_save_clips, display_txt_file, extract_first_30_seconds
 from transcript import filter_transcript, save_transcript_to_txt
 
@@ -21,7 +21,7 @@ def main():
     #If not .wav then convert the file into .wav
     if not file_path.lower().endswith('.wav'):
         convert_to_wav(file_path, converted_audio_path)
-
+    
 
     #Initialize the diarization model
     diarization_object = DiarizationModel()
@@ -49,6 +49,7 @@ def main():
         #Transcript example
         audio_example = extract_first_30_seconds()
         print("First 30s extracted")
+        print("transcribing example")
         model = whisper.load_model("tiny.en")
         result = model.transcribe(extracted_clip)
         
@@ -64,8 +65,8 @@ def main():
         else:
             speaker_n += 1
     #Transcribe the target speaker
-    print(f"Transcripting SPEAKER_0{str(speaker_n)}")
-    model = whisper.load_model("base.en")
+    print(f"Transcripting SPEAKER_0{str(speaker_n)}. May take a while...")
+    model = whisper.load_model("tiny.en")
     result = model.transcribe(audio=extracted_clip, word_timestamps = True)
 
 
@@ -81,9 +82,22 @@ def main():
     thread = threading.Thread(target=display_txt_file, args=(transcript_path,))
     thread.start()
 
+    #Ask for system style
+    system_query_name = ""
+    what_system = input("Short or complex feedback? S/c: ")
+    if what_system.lower() == "s":
+        system_query_name = "short_"
+    else:
+        system_query_name = "complex_"
+    what_system = input("Serious or funny feedback? S/f: ")
+    if what_system.lower() == "s":
+        system_query_name = system_query_name + "serious"
+    else:
+        system_query_name = system_query_name + "funny"
+
 
     #Provide feedback
-    feedback = Feedback(transcription = filtered_result, system_query = sarcastic_concise)
+    feedback = Feedback(transcription = filtered_result, system_query = system_query[system_query_name])
     print(feedback.first_message())
     user_input = " "
     while user_input.lower() != "exit":

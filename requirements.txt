@@ -90,6 +90,7 @@ Pygments==2.18.0
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
+python-vlc==3.0.20123
 pytorch-lightning==2.3.3
 pytorch-metric-learning==2.5.0
 pytz==2024.1

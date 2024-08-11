@@ -2,12 +2,11 @@ import subprocess
 from pydub import AudioSegment
 import tkinter as tk
 from tkinter import scrolledtext
-import vlc
-import time
+
 
 
 def convert_to_wav(input_file, output_file):
-    command = ['ffmpeg', '-y','-loglevel', 'quiet', '-i', input_file, '-c:a', 'pcm_s16le', output_file]
+    command = ['ffmpeg', '-y','-loglevel', 'error', '-i', input_file, '-c:a', 'pcm_s16le', output_file]
     subprocess.run(command)
     print("Audio file converted into .wav")
 
