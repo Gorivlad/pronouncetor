@@ -6,7 +6,7 @@ from pyannote.audio.pipelines.utils.hook import ProgressHook
 import matplotlib.pyplot as plt
 from pydub import AudioSegment
 
-#Overwriten on line 21
+# Overwriten on line 21
 num_speakers = 0
 
 
@@ -17,7 +17,7 @@ class DiarizationModel:
 
     def infer_file(self, file_path, num_speakers=num_speakers):
         # Diarization of audio
-        # Returns list of time-stamped segments e.g. [ 00:00:41.594 -->  00:00:44.226] AH SPEAKER_00
+        # Returns list of time-stamped segments (e.g. [ 00:00:41.594 -->  00:00:44.226] AH SPEAKER_00)
         num_speakers = int(input("How many speakers are on the recording?: "))
         with ProgressHook() as hook:
             diarization_result = self.pipeline(file_path, hook=hook, num_speakers=num_speakers)

@@ -14,39 +14,39 @@ def main():
     transcript_path = "../data/processed/transcript.txt"
 
 
-    #Get the file path from user input
+    # Get the file path from the user input
     file_path = input("Insert filepath: ")
 
     
-    #If not .wav then convert the file into .wav
+    # If not .wav then convert the file into .wav
     if not file_path.lower().endswith('.wav'):
         convert_to_wav(file_path, converted_audio_path)
     
 
-    #Initialize the diarization model
+    # Initialize the diarization model
     diarization_object = DiarizationModel()
 
 
-    #Perform diarization on the audio file
+    # Perform diarization on the audio file
     diarization_result = diarization_object.infer_file(converted_audio_path)
 
     
-    #Aim the target speaker
+    # Loop until the correct target speaker is identified
     correct_target_speaker = False
     speaker_n = 0
     while correct_target_speaker == False:
 
     
-        #Extract timestamps of one speaker
+        # Extract timestamps of one speaker
         time_extraction = diarization_object.time_extraction_touples(diarization_result, f"SPEAKER_0{str(speaker_n)}")
 
 
-        #Extract and save the speaker segment audio
+        # Extract and save the speaker segment audio
         extract_and_save_clips(converted_audio_path, time_extraction, output_path=extracted_clip)
 
 
 
-        #Transcript example
+        # Transcript example
         audio_example = extract_first_30_seconds()
         print("First 30s extracted")
         print("transcribing example")
@@ -54,35 +54,35 @@ def main():
         result = model.transcribe(extracted_clip)
         
 
-        #Print example of the speaker
+        # Print example of the speaker
         print(result["text"][:250] + "...")
 
 
-        #Ask if it's the target speaker
+        # Ask if example is the target speaker
         is_target_speaker = input("Is this target speaker? Y/n: ")
         if is_target_speaker.lower() == "y":
             correct_target_speaker = True
         else:
             speaker_n += 1
-    #Transcribe the target speaker
+    # Transcribe the target speaker
     print(f"Transcripting SPEAKER_0{str(speaker_n)}. May take a while...")
     model = whisper.load_model("small.en")
     result = model.transcribe(audio=extracted_clip, word_timestamps = True)
 
 
-    #Save result of transcription as .txt
+    # Save result of transcription as .txt
     save_transcript_to_txt(result, transcript_path)
 
 
-    #Save result of transcription as variable
+    # Save result of transcription as variable
     filtered_result = filter_transcript(result)
 
 
-    #Create and start a thread for the transcript
+    # Create and start a thread for the transcript
     thread = threading.Thread(target=display_txt_file, args=(transcript_path,))
     thread.start()
 
-    #Ask for system style
+    # Determine the style and tone of the system's feedback
     system_query_name = ""
     what_system = input("Short or complex feedback? S/c: ")
     if what_system.lower() == "s":
@@ -96,7 +96,7 @@ def main():
         system_query_name = system_query_name + "funny"
 
 
-    #Provide feedback
+    # Generate and provide feedback
     feedback = Feedback(transcription = filtered_result, system_query = system_query[system_query_name])
     print(feedback.first_message())
     user_input = " "

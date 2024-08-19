@@ -1,6 +1,5 @@
 def save_transcript_to_txt(result, output_file):
         with open(output_file, 'w') as file:
-            # Write the main text
             file.write("Full Transcription:\n")
             file.write(result['text'] + '\n\n')            
             # Write each segment in a readable form
@@ -16,9 +15,8 @@ def save_transcript_to_txt(result, output_file):
 
 
 def filter_transcript(result):
-    # Initialize a list to hold all the lines
+    # Returns a formatted string
     lines = []
-    # Write the main text
     lines.append("Full Transcription:\n")
     lines.append(result['text'] + '\n')
     # Write each segment in a readable form
@@ -32,5 +30,4 @@ def filter_transcript(result):
         #    lines.append(f"  {word['word']} (Start: {word['start']:.2f}s, End: {word['end']:.2f}s, Probability: {word['probability']:.4f})\n")
         #lines.append('\n')
 
-    # Join all the lines into a single string
     return '\n'.join(lines)

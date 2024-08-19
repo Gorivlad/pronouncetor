@@ -6,7 +6,10 @@ This application assists language learners in improving their verbal skills by r
 
 Features
 
-Audio Recording: Capture live audio or input pre-recorded audio files. Speaker Diarisation: Identify different speakers in the audio. Speech Recognition and Transcription: Convert spoken language into text. Feedback Generation: Analyze speech and generate constructive feedback on language use.
+Audio Recording: Capture live audio or input pre-recorded audio files(not implemented yet).
+Speaker Diarisation: Identify different speakers in the audio.
+Speech Recognition and Transcription: Convert spoken language into text.
+Feedback Generation: Analyze speech and generate constructive feedback on language use.
 
 Target Audience
 
