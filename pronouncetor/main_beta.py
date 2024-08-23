@@ -19,8 +19,23 @@ def main():
     transcript_path = "../data/processed/transcript.txt"
     whole_file_transcript_path = "../data/processed/transcript_whole_file.txt"
 
-    # Get the file path from user input
-    file_path = input("Insert filepath: ")
+    # Get the file path and nun of speakers from the user input and validate it
+    correct_audio = False
+    while correct_audio is not True:
+        file_path = input("Insert filepath: ")
+        correct_audio = utils.validate_audio_file(file_path)
+
+    while True:
+        try:
+            num_speakers = int(input(
+                "How many speakers are on the recording? Min 1, max 5: "
+                ))
+            if 1 <= num_speakers <= 5:
+                break
+            else:
+                print("Error: Please enter a number between 1 and 5.")
+        except ValueError:
+            print("Error: Invalid input. Please enter a valid integer.")
 
     # If not .wav then convert the file into .wav
     if not file_path.lower().endswith('.wav'):
@@ -30,7 +45,9 @@ def main():
     diarization_object = DiarizationModel()
 
     # Perform diarization on the audio file
-    diarization_result = diarization_object.infer_file(converted_audio_path)
+    diarization_result = diarization_object.infer_file(
+        converted_audio_path, num_speakers=num_speakers
+        )
 
     # Loop until the correct target speaker is identified
     correct_target_speaker = False

@@ -2,6 +2,7 @@ import subprocess
 from pydub import AudioSegment
 import tkinter as tk
 from tkinter import scrolledtext
+import os
 
 
 def convert_to_wav(input_file, output_file):
@@ -66,3 +67,26 @@ def display_txt_file(file_path):
         print(f"File not found: {file_path}")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+
+def validate_audio_file(file_path):
+    audio_extensions = [
+        '.mp3', '.wav', '.flac', '.aac', '.ogg', '.m4a', '.mp4'
+        ]
+
+    if os.path.isfile(file_path):
+        _, file_extension = os.path.splitext(file_path)
+        if file_extension.lower() in audio_extensions:
+            audio = AudioSegment.from_file(file_path)
+            duration_in_minutes = len(audio) / (1000 * 60)
+
+            if duration_in_minutes < 1:
+                return "Error: The audio is too short."
+            elif duration_in_minutes > 15:
+                return "Error: The audio is too long."
+            else:
+                return True
+        else:
+            return "Error: The file is not an audio file."
+    else:
+        return "Error: Invalid file path."

@@ -17,7 +17,6 @@ class DiarizationModel:
         Returns list of time-stamped segments
         (e.g. [ 00:00:41.594 -->  00:00:44.226] AH SPEAKER_00)
         '''
-        num_speakers = int(input("How many speakers are on the recording?: "))
         with ProgressHook() as hook:
             diarization_result = self.pipeline(
                 file_path, hook=hook, num_speakers=num_speakers

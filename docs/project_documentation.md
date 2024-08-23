@@ -31,7 +31,7 @@ Architecture overview:
 			│   ├── raw/
 			├── docs/
 			│   └── project_documentation.md
-			├── src/
+			├── pronouncetor/
 			│   ├── __pycache__/
 			│   ├── feedback_generator.py
 			│   ├── main.py
