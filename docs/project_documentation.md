@@ -29,7 +29,6 @@ Architecture overview:
 			├── data/
 			│   ├── processed/
 			│   ├── raw/
-			│   └── transcripts/
 			├── docs/
 			│   └── project_documentation.md
 			├── src/
