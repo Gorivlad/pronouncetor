@@ -4,33 +4,37 @@ import tkinter as tk
 from tkinter import scrolledtext
 
 
-
 def convert_to_wav(input_file, output_file):
-    command = ['ffmpeg', '-y','-loglevel', 'error', '-i', input_file, '-c:a', 'pcm_s16le', output_file]
+    command = [
+        'ffmpeg', '-y', '-loglevel', 'error', '-i', input_file,
+        '-c:a', 'pcm_s16le', output_file
+        ]
     subprocess.run(command)
     print("Audio file converted into .wav")
 
 
 def extract_and_save_clips(file_path, time_segments, output_path):
-        # Extract clips and save it as .wav file using pydub
-        # Time segments == list of touples
-        audio = AudioSegment.from_file(file_path)
-        extracted_audio = AudioSegment.empty()
+    '''
+    Extract clips and save it as .wav file using pydub
+    Time segments == list of touples
+    '''
+    audio = AudioSegment.from_file(file_path)
+    extracted_audio = AudioSegment.empty()
 
-        for start, end in time_segments:
-            start_ms = start * 1000
-            end_ms = end * 1000 
-            extracted_audio += audio[start_ms:end_ms]
+    for start, end in time_segments:
+        start_ms = start * 1000
+        end_ms = end * 1000
+        extracted_audio += audio[start_ms:end_ms]
 
-        extracted_audio.export(output_path, format="wav")
-        print(f"Extracted audio saved to {output_path}")
+    extracted_audio.export(output_path, format="wav")
+    print(f"Extracted audio saved to {output_path}")
 
 
-def extract_first_30_seconds():
+def extract_first_30_seconds(input_path="", output_path=""):
     # Load the audio file
-    audio = AudioSegment.from_file("../data/processed/extracted.wav")
+    audio = AudioSegment.from_file(input_path)
     audio_example = audio[:30000]
-    output_path = "../data/processed/extracted_example.wav"
+    output_path = output_path
 
     audio_example.export(output_path, format="wav")
     print(f"Extracted audio example saved to {output_path}")
@@ -46,7 +50,10 @@ def display_txt_file(file_path):
         root.title("Transcript Viewer")
 
         # Create a ScrolledText widget
-        text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=100, height=30, font=("Times New Roman", 12))
+        text_area = scrolledtext.ScrolledText(
+            root, wrap=tk.WORD, width=100, height=30,
+            font=("Times New Roman", 12)
+            )
         text_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
         # Insert the file contents into the text area
@@ -59,7 +66,3 @@ def display_txt_file(file_path):
         print(f"File not found: {file_path}")
     except Exception as e:
         print(f"An error occurred: {e}")
-
-
-
-        
