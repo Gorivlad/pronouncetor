@@ -54,9 +54,6 @@ Architecture overview:
 
 
 
-OpenAI API integration: https://platform.openai.com/docs/quickstart?context=node 
-
-
 Testing Strategy: Basic unit tests to verify the functionality of key functions and components. Using the pytest framework.
 Currently, the tests are not automated and must be executed manually with command pytest
 
