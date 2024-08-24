@@ -6,25 +6,25 @@ This application assists language learners in improving their verbal skills by r
 
 Operations Overview:
 
-	Speaker diarization:
-	 Uses Pyannote Audio for speaker diarization, identifying and segmenting speakers 
-	 in audio files.
-	 Pre-trained model Default: "pyannote/speaker-diarization-3.0".
+Speaker diarization:
+Uses Pyannote Audio for speaker diarization, identifying and segmenting speakers 
+in audio files.
+Pre-trained model Default: "pyannote/speaker-diarization-3.0".
 
-	Speaker recognition:
-	 The code loops through audio segments, transcribes them, and asks the user to confirm the target speaker until identified or untill last speaker is reached.
+Speaker recognition:
+The code loops through audio segments, transcribes them, and asks the user to confirm the target speaker until identified or untill last speaker is reached.
 
-	Transcription:
-	 The code transcribes the identified speaker's audio segment using Whisper's ASR model, saving the transcription as a text file and formatting it for further processing and feedback generation.
-	 Default for examples in speaker recognition block: tiny.en
-	 default for main transcript: small.en
+Transcription:
+The code transcribes the identified speaker's audio segment using Whisper's ASR model, saving the transcription as a text file and formatting it for further processing and feedback generation.
+Default for examples in speaker recognition block: tiny.en
+default for main transcript: small.en
 
-	Feedback generation:
-	 Feedback generation involves creating a personalized response based on the transcribed text, where the user selects the style (short or complex) and tone (serious or funny). The system then generates feedback accordingly and engages in a continuous conversation until the user exits.
-	 Default chatbot: gpt-4o
+Feedback generation:
+Feedback generation involves creating a personalized response based on the transcribed text, where the user selects the style (short or complex) and tone (serious or funny). The system then generates feedback accordingly and engages in a continuous conversation until the user exits.
+Default chatbot: gpt-4o
 
-	Beta:
-	 This version transcribes both the target speaker's segment and the entire audio file, saving each separately. Then it combines these transcriptions for feedback generation, enhancing the completeness and context of the feedback compared to the alfa version, which only transcribed the target speaker.
+Beta:
+This version transcribes both the target speaker's segment and the entire audio file, saving each separately. Then it combines these transcriptions for feedback generation, enhancing the completeness and context of the feedback compared to the alfa version, which only transcribed the target speaker.
 
 
 Architecture overview:
