@@ -4,10 +4,11 @@ This application assists language learners in improving their verbal skills by r
  and providing specific feedback on their speech. It utilizes audio processing and machine learning
  to offer insights into language proficiency and pronunciation.
 
-Features:
+Operations Overview:
 
 	Speaker diarization:
-	 Uses Pyannote Audio for speaker diarization, identifying and segmenting speakers in audio files.
+	 Uses Pyannote Audio for speaker diarization, identifying and segmenting speakers 
+	 in audio files.
 	 Pre-trained model Default: "pyannote/speaker-diarization-3.0".
 
 	Speaker recognition:
