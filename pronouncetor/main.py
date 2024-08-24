@@ -23,12 +23,12 @@ def main():
     while True:
         try:
             num_speakers = int(input(
-                "How many speakers are on the recording? Min 1, max 5: "
+                "How many speakers are on the recording? Min 1, max 3: "
                 ))
-            if 1 <= num_speakers <= 5:
+            if 1 <= num_speakers <= 3:
                 break
             else:
-                print("Error: Please enter a number between 1 and 5.")
+                print("Error: Please enter a number between 1 and 3.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid integer.")
 
@@ -75,6 +75,9 @@ def main():
         is_target_speaker = input("Is this target speaker? Y/n: ")
         if is_target_speaker.lower() == "y":
             correct_target_speaker = True
+        if speaker_n == num_speakers:
+            print("Last speaker reached")
+            break
         else:
             speaker_n += 1
     # Transcribe the target speaker
@@ -115,6 +118,7 @@ def main():
     print(feedback.first_message())
     user_input = " "
     while user_input.lower() != "exit":
+        print("for exit type 'exit'")
         user_input = input("you: ")
         if user_input.lower() == "exit":
             break

@@ -28,12 +28,12 @@ def main():
     while True:
         try:
             num_speakers = int(input(
-                "How many speakers are on the recording? Min 1, max 5: "
+                "How many speakers are on the recording? Min 1, max 3: "
                 ))
-            if 1 <= num_speakers <= 5:
+            if 1 <= num_speakers <= 3:
                 break
             else:
-                print("Error: Please enter a number between 1 and 5.")
+                print("Error: Please enter a number between 1 and 3.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid integer.")
 
@@ -50,9 +50,8 @@ def main():
         )
 
     # Loop until the correct target speaker is identified
-    correct_target_speaker = False
     speaker_n = 0
-    while correct_target_speaker is False:
+    while True:
 
         # Extract timestamps of one speaker
         time_extraction = diarization_object.time_extraction_touples(
@@ -78,7 +77,10 @@ def main():
         # Ask if example is the target speaker
         is_target_speaker = input("Is this target speaker? Y/n: ")
         if is_target_speaker.lower() == "y":
-            correct_target_speaker = True
+            break
+        if speaker_n == num_speakers:
+            print("Last speaker reached")
+            break
         else:
             speaker_n += 1
     # Transcribe the target speaker and save result
@@ -124,6 +126,7 @@ def main():
     print(feedback.first_message())
     user_input = " "
     while user_input.lower() != "exit":
+        print("for exit type 'exit'")
         user_input = input("you: ")
         if user_input.lower() == "exit":
             break

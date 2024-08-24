@@ -20,7 +20,7 @@ class Feedback:
         automaticaly using stranscription and system query of the object
         '''
         completion = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": self.system_query},
                 {"role": "user", "content": self.transcription}
@@ -39,7 +39,7 @@ class Feedback:
             )
 
         completion = self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=self.conversation_history,
         )
 
